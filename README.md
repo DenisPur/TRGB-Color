@@ -9,7 +9,7 @@ When using (including modification), I humbly ask you to quote the work "TBA".
 
 # Install
 To create a working environment in Conda, run:
-```
+```bash
 conda env create -f environment.yml
 ```
 This will create an environment called `trgb_gui`, which will contain all the necessary Python packages. Alternatively, you can install them manually: 
@@ -30,9 +30,17 @@ Note: its `fpdf2`, not `fpdf`!
 
 ### Run
 If you installed the environment using `environment.yml` activate it and run the program: 
-```
+```bash
 conda activate trgb_gui
 python run.py
+```
+
+### Uninstall
+To completely uninstall the application:
+1. Delete the project directory.
+2. Remove the Conda environment:
+```bash
+conda env remove --name trgb_gui
 ```
 
 # Usage

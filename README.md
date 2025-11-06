@@ -59,7 +59,11 @@ The input data must be a CSV file with fixed column names. Examples of valid inp
 - `flag_v`,`flag_i` - diagnostic quality flag.
 
 The columns provided in the input data can be used later to clean up the photometry. Additional columns may be present, and they can be in any order.
-It might be helpful to look at the Jupyter notebook in the `converter_to_csv` directory as an example of converting DOLPHOT data to the format used.
+It might be helpful to look at the Jupyter notebook in the `photometry_converter` directory as an example of converting DOLPHOT data to the format used.
+
+
+### Data preparetion
+TBA
 
 
 ### File selection and basic data entry

@@ -1,9 +1,16 @@
 # pycache
 *__pycache__*
 
+#jupyter auxiliaries
+*.ipynb_checkpoints
+
 # folder with ui in html format
 ui_files
 ui_files/*
+
+# photometry converter auxiliaries
+photometry_converter/readers.py
+photometry_converter/converter.ipynb
 
 # testing
 *test.py

@@ -62,7 +62,7 @@ The columns provided in the input data can be used later to clean up the photome
 It might be helpful to look at the Jupyter notebook in the `photometry_converter` directory as an example of converting DOLPHOT data to the format used.
 
 
-### Data preparetion
+### Data preparation
 For more information run from `photometry_converter` directory:
 ```bash
 conda activate trgb_gui
@@ -100,7 +100,7 @@ Run the program. This is what you should see:
 
     <img src="exhibition_materials/08_distance.png" width="500"/>
 
-5. Enter extinction (V-I) and absorbtion in filter I.
+5. Enter extinction (V-I) and absorption in filter I.
 
     <img src="exhibition_materials/09_color_excess.png" width="500">
 
@@ -123,6 +123,14 @@ This method allows one to approximate the branch of red giants using a parabola.
 This method allows one to measure the color index using the density profile of the stars at the specified M_I level. The confidence interval estimate will be obtained using the Monte Carlo method.
 
 <img src="exhibition_materials/density_1.png" width="5800">
+
+### Distance adjustment
+
+The most practical approach is to adopt the distance derived from the color-magnitude diagram. It is also crucial to specify the confidence interval for this distance (which may be asymmetric), as it is used directly in both methods for measuring the color index. The upper and lower bounds of this interval, $\delta_{+}D$ and $\delta_{-}D$, are expressed in magnitudes. Their values are defined according to the following logic:
+
+$D_{real} ∈ [D - \delta_{-} D; D + \delta_{+} D]$
+
+<img src="exhibition_materials/distances.png" width="300">
 
 ### Saving results
 The processing result will be two files: a json file with parameters and numerical estimates, and a pdf file with a visualization of intermediate graphs.

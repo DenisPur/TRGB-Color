@@ -44,7 +44,7 @@ def read_data_file(file_path: str, skip_rows: int=0) -> pd.DataFrame | None:
         df = pd.read_csv(
             file_path, 
             skiprows=skip_rows,
-            sep='\s+',
+            sep=r'\s+',
             engine='python',
             header=None
         )

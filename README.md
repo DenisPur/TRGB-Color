@@ -63,7 +63,7 @@ It might be helpful to look at the Jupyter notebook in the `photometry_converter
 
 
 ### Data preparetion
-Fo more information run from `photometry_converter` directory:
+For more information run from `photometry_converter` directory:
 ```bash
 conda activate trgb_gui
 python converter.py -h
@@ -74,7 +74,7 @@ You can use files from `photometry_converter/raw` as a playground.
 
 <img src="exhibition_materials/converter_example.png" width="500"/>
 
-TBA more information.
+This script enables a step-by-step selection of the required columns from data in the standard DOLPHOT format and exports them to a ready-to-use CSV file.
 
 
 ### File selection and basic data entry

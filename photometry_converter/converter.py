@@ -13,14 +13,49 @@ WHITE = "\033[97m"
 RESET = "\033[0m"
 
 
+def synch_coordinates_wfcs(df: pd.DataFrame) -> pd.DataFrame:
+    x_array = df['x'].to_numpy()
+    y_array = df['y'].to_numpy()
+
+    x_rotated = x_array.copy()
+    y_rotated = y_array.copy()
+
+    kinda_size_of_a_chip = 750
+
+    for ind, ext in enumerate(df['extension']):
+        if ext == 0:
+            x_rotated[ind] = kinda_size_of_a_chip + x_array[ind] * 0.5 - 75
+            y_rotated[ind] = kinda_size_of_a_chip + y_array[ind] * 0.5 - 75
+        elif ext == 1:
+            x_rotated[ind] = kinda_size_of_a_chip - y_array[ind]
+            y_rotated[ind] = kinda_size_of_a_chip + x_array[ind] - 100
+        elif ext == 2:
+            x_rotated[ind] = kinda_size_of_a_chip - x_array[ind]
+            y_rotated[ind] = kinda_size_of_a_chip - y_array[ind]
+        elif ext == 3:
+            x_rotated[ind] = kinda_size_of_a_chip + y_array[ind] - 100
+            y_rotated[ind] = kinda_size_of_a_chip - x_array[ind]
+
+    df['x'] = x_rotated
+    df['y'] = y_rotated
+    return df
+
+
+def synch_coordinates_acs(df: pd.DataFrame) -> pd.DataFrame:
+    kinda_size_of_a_chip = 2100
+
+    df['y'] = df['y'] + kinda_size_of_a_chip * (df['extension'] == 2)
+    return df
+
+
 def parse_arguments() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description='Convert photometry data to CSV format',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  python script.py -f data.txt -o output.csv
-  python script.py --file observations.dat --output results.csv
+  python converter.py -f data.txt -o output.csv
+  python converter.py --file observations.dat --output results.csv
         """
     )
     
@@ -74,7 +109,7 @@ def select_data_start(file_path: str, show_lines: int=5) -> int:
             print("Please enter a valid integer")
 
 
-def select_columns_interactive(df: pd.DataFrame) -> dict[str, int]:
+def select_columns_interactive(df: pd.DataFrame) -> pd.DataFrame:
     def process_one_column_entrance(mandatory_column: bool) -> None:
         nonlocal column_mapping
         nonlocal index, col_name
@@ -139,17 +174,55 @@ def select_columns_interactive(df: pd.DataFrame) -> dict[str, int]:
         else:
             process_one_column_entrance(False)
 
-    return column_mapping
+    if 0 not in column_mapping.values():
+        column_mapping['extension'] = 0
+        print(f"\n{GREEN}First column automatically added as 'extension'{RESET}")
+    else:
+        for field, col_idx in column_mapping.items():
+            if col_idx == 0:
+                print(f"\n{YELLOW}First column is already used for '{field}'{RESET}")
+                print("If you need 'extension' column, please select it manually")
+                break
 
-
-def create_output_csv(df: pd.DataFrame, column_mapping, output_path: str) -> None:
     output_data = {}
     for new_name, old_idx in column_mapping.items():
         output_data[new_name] = df.iloc[:, old_idx]
     
     output_df = pd.DataFrame(output_data)
-    output_df.to_csv(output_path, index=False)
-    print(f"Successfully saved {len(output_df)} rows with {len(output_df.columns)} columns to {output_path}")
+
+    return output_df
+
+
+def correct_coordinates(df: pd.DataFrame) -> pd.DataFrame:
+    print(f"Extensions: {set(df['extension'])}")
+    print("\nAvailable coordinate correction methods:")
+    print(f"  1. {CYAN}synch_coordinates_acs{RESET} - for ACS")
+    print(f"  2. {CYAN}synch_coordinates_wfcs{RESET} - for WFCS")
+    print("  3. Skip coordinate correction")
+
+    while True:
+        method = input("Select method (1/2/3 or Enter to skip): ").strip()
+        
+        if method == '1' or method == '2' or method == '3' or method == '':
+            break
+        print("Please enter 1, 2, 3, or press Enter to skip")
+    
+    if method == '1':
+        output_df = synch_coordinates_acs(df)
+        print(f"{GREEN}ACS coordinate correction applied{RESET}")
+    
+    elif method == '2':
+        output_df = synch_coordinates_wfcs(df)
+        print(f"{GREEN}WFCS coordinate correction applied{RESET}")
+    
+    else:
+        print("Coordinate correction skipped")
+
+    return output_df
+
+def create_output_csv(df: pd.DataFrame, output_path: str) -> None:
+    df.to_csv(output_path, index=False)
+    print(f"Successfully saved {len(df)} rows with {len(df.columns)} columns to {output_path}")
 
 
 def main():
@@ -161,9 +234,11 @@ def main():
     if df is None:
         return
 
-    column_mapping = select_columns_interactive(df)
+    df = select_columns_interactive(df)
 
-    create_output_csv(df, column_mapping, args.output)
+    df = correct_coordinates(df)
+
+    create_output_csv(df, args.output)
 
 
 if __name__ == '__main__':

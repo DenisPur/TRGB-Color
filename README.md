@@ -68,11 +68,11 @@ For more information run from `photometry_converter` directory:
 conda activate trgb_gui
 python converter.py -h
 ```
-<img src="exhibition_materials/converter_help_menu.png" width="500"/>
+<img src="readme_images/converter_help_menu.png" width="500"/>
 
 You can use files from `photometry_converter/raw` as a playground.
 
-<img src="exhibition_materials/converter_example.png" width="500"/>
+<img src="readme_images/converter_example.png" width="500"/>
 
 This script enables a step-by-step selection of the required columns from data in the standard DOLPHOT format and exports them to a ready-to-use CSV file.
 
@@ -80,49 +80,49 @@ This script enables a step-by-step selection of the required columns from data i
 ### File selection and basic data entry
 Run the program. This is what you should see:
 
-<img src="exhibition_materials/02_base_mouse.png" width="500"/>
+<img src="readme_images/02_base_mouse.png" width="500"/>
 
 1. Select file `.csv` file with photometric data. Each row should represent a possible star. Mandatory columns: `x`, `y` (coordinates in the instrument's field of view), `mag_v`, `err_v`, `mag_i`, `err_i` (apparent magnitude and measurement error in filters I and V, respectively). 
 
-    <img src="exhibition_materials/03_file_selections.png" width="800"/>
+    <img src="readme_images/03_file_selections.png" width="800"/>
 
 2. Clean the photometry data. Select criteria to use, change them if necessary. In this example, I got rid of the bottom of the CMD by raising the Signal/Noise threshold.
 
-    <img src="exhibition_materials/05_clearing.png" width="800"/>
+    <img src="readme_images/05_clearing.png" width="800"/>
 
 3. Crop the field of view if necessary. In this example, I have cut off the areas of the instrument's field most dense with stars, and thus selected only the outer regions of the galaxy. You can also select a rectangular area in the field by entering the coordinates manually.
 
-    <img src="exhibition_materials/06_clipping.png" width="5800"/>
+    <img src="readme_images/06_clipping.png" width="5800"/>
 
-    <img src="exhibition_materials/07_clipped.png" width="800"/>
+    <img src="readme_images/07_clipped.png" width="800"/>
 
 4. Enter distance (in MPc or in Mag).
 
-    <img src="exhibition_materials/08_distance.png" width="500"/>
+    <img src="readme_images/08_distance.png" width="500"/>
 
 5. Enter extinction (V-I) and absorption in filter I.
 
-    <img src="exhibition_materials/09_color_excess.png" width="500">
+    <img src="readme_images/09_color_excess.png" width="500">
 
 6. View the cleaned instrument field and color-magnitude diagram in absolute magnitudes. There will be density histogram over the scatterplot, you can change it to kernel-density plot (kde) if you need. Using kde usually takes some time.
 
-    <img src="exhibition_materials/10_abs_cmd.png" width="800">
+    <img src="readme_images/10_abs_cmd.png" width="800">
     
-    <img src="exhibition_materials/11_abs_cmd_isodense.png" width="800">
+    <img src="readme_images/11_abs_cmd_isodense.png" width="800">
 
 The program provides the ability to measure color index using two methods described in the article (ref. TBA).
 
 ### Branch approximation
 This method allows one to approximate the branch of red giants using a parabola. A peculiarity of this method is that one must manually specify the boundaries of the region in color index (V-I) - brightness (I) coordinates where the branch is located.
 
-<img src="exhibition_materials/branch_1.png" width="500">
+<img src="readme_images/branch_1.png" width="500">
 
-<img src="exhibition_materials/branch_2.png" width="800">
+<img src="readme_images/branch_2.png" width="800">
 
 ### Density analythis
 This method allows one to measure the color index using the density profile of the stars at the specified M_I level. The confidence interval estimate will be obtained using the Monte Carlo method.
 
-<img src="exhibition_materials/density_1.png" width="5800">
+<img src="readme_images/density_1.png" width="5800">
 
 ### Distance adjustment
 
@@ -130,13 +130,13 @@ The most practical approach is to adopt the distance derived from the color-magn
 
 $D_{real} ∈ [D - \delta_{-} D; D + \delta_{+} D]$
 
-<img src="exhibition_materials/distances.png" width="300">
+<img src="readme_images/distances.png" width="300">
 
 ### Saving results
 The processing result will be two files: a json file with parameters and numerical estimates, and a pdf file with a visualization of intermediate graphs.
 
-<img src="exhibition_materials/saving_1+2.png" width="800">
+<img src="readme_images/saving_1+2.png" width="800">
 
-<img src="exhibition_materials/result_pdf.png" width="800">
+<img src="readme_images/result_pdf.png" width="800">
 
-<img src="exhibition_materials/result_json.png" width="800">
+<img src="readme_images/result_json.png" width="800">

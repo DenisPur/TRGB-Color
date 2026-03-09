@@ -1,6 +1,6 @@
-# TRGB - Color Estimation
+# RGB - Color Estimation
 
-This small program was written during the processing of the EDD catalog to measure the color index of the red giant branch. Now I'm making it freely available. 
+This program was written to measure a mean color index of the red giant branch of galaxies resolved into stars in the Local Volume (based on EDD CMD/TRGB catalog (`https://edd.ifa.hawaii.edu`). Now I'm making it freely available. 
 
 This Python program allows you to clean the photometry file, crop the field of the instrument (for example, by selecting the outer regions of the galaxy in field), build a color-magnitude diagram and measure the color index at any level ($M_I$) in two ways: by searching for the maximum density or approximating the branch with a parabola. For convenience, a graphical interface written in QT5 is used. 
 
@@ -100,7 +100,7 @@ Run the program. This is what you should see:
 
     <img src="readme_images/08_distance.png" width="500"/>
 
-5. Enter extinction (V-I) and absorption in filter I.
+5. Enter foreground (Galactic) extinction in I and respective (V-I) color excess.
 
     <img src="readme_images/09_color_excess.png" width="500">
 

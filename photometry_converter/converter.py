@@ -217,6 +217,7 @@ def correct_coordinates(df: pd.DataFrame) -> pd.DataFrame:
     
     else:
         print("Coordinate correction skipped")
+        return df
 
     return output_df
 

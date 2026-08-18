@@ -1,4 +1,4 @@
-# RGB - Color Estimation
+# RGB-Color: Red Giant Branch Color Estimation
 
 This program was written to measure a mean color index of the red giant branch of galaxies resolved into stars in the Local Volume (based on EDD CMD/TRGB catalog (`https://edd.ifa.hawaii.edu`). Now I'm making it freely available. 
 
